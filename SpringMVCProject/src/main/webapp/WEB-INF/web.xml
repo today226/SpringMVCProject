@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- first  -->
+	<welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Encoding -->
+	<filter>
+	    <filter-name>encodingFilter</filter-name>
+		<filter-class>
+		        org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+		    <param-name>encoding</param-name>
+		    <param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.com</url-pattern>
+    </filter-mapping>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Processes application requests -->
+	<!-- 서블릿 초기화 파라미터(<init-param>): 
+	            서블릿 상에서 호출시 getServletConfig().getInitParameter("paramname"); 
+	            범위 <init-param>항목을 표함하고 있는 서블릿만 (서블릿 코드 안에서 이 값을 속성에 저장하여 다른 컴포넌트에서도 이용 가능하게 만들 수 있다)
+	-->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!--  
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			-->
+			<param-value>/WEB-INF/config/*-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!--  
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	-->
+	<!-- com를 통해서만 요청을 전달하고, 다른 방식의 요청, 예를 들어 .html의 직접적인 호출등은 이제 허락되지 않는다-->
+	<servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.com</url-pattern>
+    </servlet-mapping>
+
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- 컨텍스트 초기화 파라미터, 범위: 웹 애플리케이션에 존재하는 어떤 서블릿이나 jsp 모두, 모든 웹 애플리케이션에서 파라미터를 공유하기 위해서 사용한다
+		   최초 서버가 시작될 때 해당 위치에 있는 context 파일을 모조리 읽어들이는 것을 뜻한다 
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:config/spring/context-*.xml</param-value>
+	</context-param>
+</web-app>
