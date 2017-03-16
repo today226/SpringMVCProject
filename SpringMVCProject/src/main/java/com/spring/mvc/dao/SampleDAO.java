@@ -20,7 +20,7 @@ public class SampleDAO extends AbstractDAO {
 		insert("sample.insertBoard", map);
 	}
 	//해당 게시글의 조회수를 1 증가시킨다
-	public void updateHitCnt(Map<String, Object> map) throws Exception {
+	public void updateHitCnt(Map<String, Object> map) throws Exception{
 		update("sample.updateHitCnt", map);
 	}
 	
@@ -28,12 +28,12 @@ public class SampleDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("sample.selectBoardDetail", map);
 	}
 
-	public void updateBoard(Map<String, Object> map) {
+	public void updateBoard(Map<String, Object> map) throws Exception{
 		update("sample.updateBoard", map);
 	}
 	
-	public void deleteBoard(Map<String, Object> map) {
-		delete("sample.deleteBoard", map);
+	public void deleteBoard(Map<String, Object> map) throws Exception{
+		update("sample.deleteBoard", map);
 	}
 	
 	public void insertFile(Map<String, Object> map) throws Exception{
