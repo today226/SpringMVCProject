@@ -16,7 +16,7 @@
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
-				<td>${map.TITLE}</td>
+				<td>${map.IDX}</td>
 				<th scope="row">조회수</th>
 				<td>${map.HIT_CNT }</td>
 			</tr>
@@ -32,6 +32,16 @@
 			</tr>
 			<tr>
 				<td colspan="4">${map.CONTENTS }</td>
+			</tr>
+			<tr>
+				<th scope="row">첨부파일</th>
+				<td colspan="3">
+					<c:forEach var="row" items="${list}">
+						<input type="hidden" id="IDX" value="${row.IDX }">
+						<a href="#this" name="file">${row.ORIGINAL_FILE_NAME }</a>
+						(${row.FILE_SIZE}KB)
+					</c:forEach>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -50,7 +60,12 @@
 				e.preventDefault();
 				fn_openBoardUpdate();
 			});
+			
+			$("a[name='file']").on("click", function(e){
+				e.preventDefault();
+			})
 		});
+		
 		
 		function fn_openBoardList(){
 			var comSubmit = new ComSubmit();
