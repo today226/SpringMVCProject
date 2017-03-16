@@ -63,6 +63,7 @@
 			
 			$("a[name='file']").on("click", function(e){
 				e.preventDefault();
+				fn_downLoadFile($(this));
 			})
 		});
 		
@@ -77,6 +78,14 @@
 			var idx = "${map.IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/sample/openBoardUpdate.com' />");
+			comSubmit.addParam("IDX", idx);
+			comSubmit.submit();
+		}
+		
+		function fn_downLoadFile(obj){
+			var idx = obj.parent().find("#IDX").val();
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/sample/downLoadFile.com'/>");
 			comSubmit.addParam("IDX", idx);
 			comSubmit.submit();
 		}
