@@ -1,5 +1,6 @@
 package com.spring.mvc.serviceImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+
 
 
 import com.spring.mvc.common.util.FileUtils;
@@ -46,7 +48,12 @@ public class SampleServiceImpl implements SampleService {
 	public Map<String, Object> selectBoardDetail(Map<String, Object> map)
 			throws Exception {
 		sampleDAO.updateHitCnt(map);
-		Map<String, Object> resultMap = sampleDAO.selectBoardDetail(map);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> tempMap = sampleDAO.selectBoardDetail(map);
+		resultMap.put("map", tempMap);
+		
+		List<Map<String, Object>> list = sampleDAO.selectFileList(map);
+		resultMap.put("list", list);
 		return resultMap;
 	}
 
